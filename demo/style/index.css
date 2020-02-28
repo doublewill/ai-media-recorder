@@ -1,0 +1,17 @@
+
+* {
+  margin: 0;
+}
+
+body {
+  min-width: 1000px;
+}
+
+video {
+  object-fit: fill;
+}
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
