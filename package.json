@@ -1,6 +1,6 @@
 {
   "name": "ai-media-recorder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a tool for media recorder in html5",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
