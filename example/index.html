@@ -12,10 +12,11 @@
       <video id="js-video" controls></video>
       <div class="btn-list">
         <button class="btn btn-danger" onclick="start()">开始</button>
+        <button class="btn btn-danger" onclick="paused()">暂停</button>
         <button class="btn btn-danger" onclick="stop()">结束</button>
-        <button class="btn btn-danger" onclick="downloadVideo()">
+        <!-- <button class="btn btn-danger" onclick="downloadVideo()">
           下载视频
-        </button>
+        </button> -->
         <button class="btn btn-danger" onclick="downloadAudio()">
           下载音频
         </button>
@@ -29,34 +30,36 @@
       }
       let videoEl = $("js-video");
 
-      // // 想要获取一个最接近 1280x720 的相机分辨率
-      var constraints = { audio: true, video: { width: 1280, height: 720 } };
-
-      // navigator.mediaDevices
-      //   .getUserMedia(constraints)
-      //   .then(function (mediaStream) {
-      //     var video = videoEl;
-      //     video.srcObject = mediaStream;
-      //     video.onloadedmetadata = function (e) {
-      //       video.play();
-      //     };
-      //   })
-      //   .catch(function (err) {
-      //     console.log(err.name + ": " + err.message);
-      //   }); // 总是在最后检查错误
-      let aiMediaRecorder = new AiMediaRecorder({
+      // 想要获取一个最接近 1280x720 的相机分辨率
+      let aiMediaRecorder = new AIMediaRecorder({
         constraints: {
-          video: { width: 1280, height: 720 },
+          video: true,
           audio: true,
         },
-        size: {
-          width: 480,
-          height: 320,
+        success: (stream) => {
+          videoEl.srcObject = stream;
+          videoEl.onloadedmetadata = function (e) {
+            videoEl.play();
+            videoEl.muted = true;
+          };
         },
-        video: videoEl
       });
 
-      function start() {}
+      function start() {
+        aiMediaRecorder.start()
+        videoEl.play()
+      }
+      function paused () {
+        aiMediaRecorder.paused()
+        console.log(videoEl)
+        videoEl.pause()
+      }
+      function stop() {
+        aiMediaRecorder.stop()
+      }
+      function downloadAudio() {
+        aiMediaRecorder.download()
+      }
     </script>
   </body>
 </html>
